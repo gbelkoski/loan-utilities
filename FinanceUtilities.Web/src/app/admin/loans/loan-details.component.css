@@ -1,0 +1,24 @@
+﻿.dense-table {
+    width: 100%;
+}
+
+.dense-table input[type=text] {
+    width: 70px;
+    height: 20px;
+}
+
+.dense-table select {
+    height: 30px;
+    max-width: 100px;
+}
+
+.dense-table th {
+    font-size: small;
+}
+
+.dense-table button {
+    font-size: xx-small;
+    padding: 0;
+    height: 15px;
+    margin: 0;
+}

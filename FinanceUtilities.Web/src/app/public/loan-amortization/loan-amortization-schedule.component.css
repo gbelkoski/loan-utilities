@@ -1,0 +1,26 @@
+@media only screen and (max-width: 480px) {
+    .firstColumn {
+        display: none;
+    }
+    span {
+        font-size: x-small;
+    }
+    td {
+        padding-left: -4px;
+        padding-right: -4px;
+    }
+}
+
+.table td, .table th {
+    padding: 0px;
+}
+
+@media only screen and (min-width: 600px) {
+    .amort-modal {
+        width: 140%;
+    }
+
+    .table td, .table th {
+        padding: .75rem;
+    }
+}

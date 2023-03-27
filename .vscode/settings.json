@@ -1,0 +1,11 @@
+{
+    "files.exclude": {
+        "**/*.component.js": true,
+        "**/*.js.map": true,
+        "**/*.module.js": true,
+        "**/*.spec.*": true,
+        "**/bin": true,
+        "**/node_modules": true,
+        "**/obj": true
+    }
+}

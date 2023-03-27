@@ -1,0 +1,13 @@
+﻿<div class="fade modal" id="compare-markup-modal">
+    <div class="modal-dialog">
+        <div class="modal-content compare-markup-modal" data-async data-target="#compare-markup-modal">
+            <div class="modal-header">
+                <h4 id="modalHeading">Разлики - {{loan?.Name}}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <pre class="comparemarkup" processingDiff [left]="left" [right]="right"></pre>
+            </div>
+        </div>
+    </div>
+</div>

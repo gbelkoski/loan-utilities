@@ -1,0 +1,56 @@
+﻿<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success" (click)="newLoan()">+ Нов Кредит</button>
+                <button class="btn btn-danger" (click)="scrapeLoans()">Превземи кредити</button>
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <div style="width: 100%;display: flex;">
+                            <div style="width: 30%;">
+                                <h4 class="title">Кредитни производи</h4>
+                                <p class="category">Листа на кредитни производи</p>
+                            </div>
+                            <select style="width: 25%;" [(ngModel)]="filter.BankId" name="filter.BankId" class="form-control">
+                                <option *ngFor="let b of banks" value="{{b.Id}}">{{b.Name}}</option>
+                            </select>
+                            <select style="width: 25%;" [(ngModel)]="filter.LoanTypeId" name="filter.LoanTypeId" class="form-control">
+                                <option *ngFor="let lt of loanTypes" value="{{lt.Id}}">{{lt.Name}}</option>
+                            </select>
+                            <input type="checkbox" [(ngModel)]="filter.ShowOnlyMarkupChanges" /> Разлики
+                            <button style="width: 10%; height: 30px; margin:5px" class="btn btn-info btn-sm" (click)="filterLoans()">Барај</button>
+                            <button style="width: 10%; height: 30px; margin:5px" class="btn btn-info btn-sm" (click)="clearFilters()">Clear</button>
+                        </div>
+
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table table-hover table-sm">
+                            <thead class="text-danger">
+                                <tr>
+                                    <th>Банка</th>
+                                    <th>Тип на кредит</th>
+                                    <th>Име</th>
+                                    <th>Последно превземање</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let loan of loans" [ngClass]="{'changed': loan.HasChanges===true}">
+                                    <td (click)="openLoanDetails(loan)">{{loan.BankName}}</td>
+                                    <td>{{loan.LoanType}}</td>
+                                    <td>{{loan.Name}}</td>
+                                    <td>{{loan.NewMarkupDate | date: 'dd.MM.yyyy hh:mm'}}</td>
+                                    <td><button class="btn btn-danger btn-sm pull-right" (click)="deleteLoan(loan.Id)">Избриши</button></td>
+                                    <td><button class="btn btn-info btn-sm pull-right" (click)="updateLoanMarkup($event, loan.Id)">Scrape it!</button></td>
+                                    <td><button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#compare-markup-modal" (click)="compareLoanMarkup($event, loan.Id)">Спореди</button></td>
+                                    <td><button class="btn btn-info btn-sm pull-right" (click)="markLoanUpdated($event, loan.Id)">Done</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<compare-markup [left]='left' [right]="right" [loan]="selectedLoan" #compareMarkup></compare-markup>

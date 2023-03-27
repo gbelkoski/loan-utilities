@@ -1,0 +1,47 @@
+<div class="results d-xs-block d-sm-block d-md-none d-lg-none">
+    <div class="card container" style="padding: 15px">
+        <div class="d-flex flex-column" style="text-align: center">
+            <a [attr.href]="loan.BankWebsite" class="website">
+                <img src="{{loan.BankSmallLogo}}" alt="{{loan.BankName}}" class="loan-image-sm" />
+            </a>
+            <a>
+                <h5 class="loan-name">{{loan.LoanName}}</h5>
+            </a>
+        </div>
+        <hr class="line" />
+        <div [innerHTML]="loan.InstallmentInfo" class="installment"></div>
+        <hr />
+        <span class="section-heading">Услови</span>
+        <p>Валута: {{loan.CurrencyCode}}</p>
+        <p>Износ: од {{loan.MinimumAmount}} до {{loan.MaximumAmount}}</p>
+        <p>Времетраење: од {{loan.MinimumDuration}} до {{loan.MaximumDuration}}</p>
+        <p>Учество: минимум {{loan.ParticipationPercentage}}%</p>
+        <hr />
+        <span class="section-heading" *ngIf="hasExpenses">Трошоци</span>
+        <p *ngFor="let expense of loan.LoanExpenses">{{expense.ExpenseType}}: {{expense.Amount | number:'1.0-0'}} {{loan.CurrencyCode}}</p>
+        <hr *ngIf="hasExpenses" />
+        <div class="details d-flex flex-row justify-content-between">
+            <div class="d-flex flex-column">
+                <span class="text-subtotal">{{loan.TotalInterest}}</span>
+                <span class="label-total">Камата</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span class="text-subtotal">{{loan.TotalExpenses}}</span>
+                <span class="label-total">Трошоци</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span class="text-total">{{loan.Total}}</span>
+                <span class="label-total">Вкупно</span>
+            </div>
+        </div>
+        <div class="action-bar d-flex flex-row">
+            <button class="btn btn-info btn-sm" style="margin-right: 15px;" (click)="backClicked()"><b>&lt; Назад</b></button>
+            <button class="btn btn-info btn-sm" id="amortBtn" data-toggle="modal" data-target="#amortization-modal" (click)="showAmortSchedule()"><b>Aморт. план</b></button>
+            <button class="btn btn-danger btn-sm quote" style="min-width: 120px;" data-toggle="modal" data-target="#quote-modal" *ngIf="loan.AskQuoteEnabled"><b>Побарај понуда</b></button>
+        </div>
+    </div>
+</div>
+
+<loan-quote [loanId]='loanId' [loanAmount]='loanAmount' [loanDuration]='loanDuration'></loan-quote>
+
+<loan-amortization-schedule [loan]="loan" [loanAmount]='loanAmount' [loanDuration]='loanDuration' #amortSchedule></loan-amortization-schedule>

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Кредитинфо.МК</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" />
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        td {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; font-family: 'Arial'; font-weight: 300; font-size: 16px">
+    <div style="margin: 10px">
+        <h4>Почитувани,</h4>
+        <p>
+            Оваа порака е испратена во име на нашиот клиент {ClientName}, заинтересиран за следниот производ: <br />
+        </p>
+
+        <table>
+            <tr>
+                <th>Име и презиме</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Град</th>
+                <th>Тип на кредит</th>
+                <th>Износ во EUR</th>
+                <th>Времетраење</th>
+            </tr>
+            <tr>
+                <td>
+                    {ClientName}
+                </td>
+
+                <td>
+                    {ClientEmail}
+                </td>
+
+                <td>
+                    {ClientPhone}
+                </td>
+
+                <td>
+                    {ClientCity}
+                </td>
+
+                <td>
+                    {LoanType}
+                </td>
+
+                <td>
+                    {LoanAmount}
+                </td>
+
+                <td>
+                    {LoanDuration} години
+                </td>
+            </tr>
+        </table>
+
+        <br />
+
+        <p>Порака од клиентот: </p>
+        <p><i>{ClientMessage}</i></p>
+
+        <br />
+        Ве молиме да го информирате за вашата најдобра понуда на email или телефон. <br /><br />
+
+        <br />
+        Со Почит,<br />
+        Кредитинфо.мк
+    </div>
+</body>
+
+</html>

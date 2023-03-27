@@ -1,0 +1,32 @@
+<div class="rowCards">
+
+    <header class="landing-header">
+        <h3 class="landing-title">Добредојдовте на Кредит - Инфо,<br /> вашиот личен финансиски советник!</h3>
+        <!-- <p class="doznajte">
+            <br/>Кликнете на некоја од сликите за дознаете кој кредит најмногу одговара на вашите потреби. Доколку имате прашање, не се двоумете да кликнете на сликата со прашалник.
+        </p> -->
+    </header>
+
+    <div class="divCards">
+        <div class="card card-shadow" (click)="navigate('Hous')">
+            <div class="imgCard">
+                <img src="assets/img/landing/stanben.png" class="cardImg">
+            </div>
+            <p class="typeCredit">Станбени кредити</p>
+        </div>
+
+        <div class="card card-shadow" style="position: relative;" (click)="navigate('Cons')">
+            <div class="imgCard">
+                <img src="assets/img/landing/potrosuvacki.png" class="cardImg">
+            </div>
+            <p class="typeCredit">Потрошувачки кредити</p>
+        </div>
+
+        <div class="card cards3 card-shadow" style="text-align: center;" (click)="navigate('Auto')">
+            <div class="imgCard">
+                <img src="assets/img/landing/avto.png" class="cardImg">
+            </div>
+            <p class="typeCredit">Останати кредити</p>
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="fade modal" id="quote-modal">
+    <div class="modal-dialog">
+        <form class="modal-content" data-async data-target="#input-modal" (ngSubmit)="quotef.form.valid && requestQuote()" #quotef="ngForm">
+            <div class="modal-header">
+                <h4 id="modalHeading">Барање за понуда</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" #closeQuoteModal>×</button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p>Барање за кредит во износ од <b>{{this.loanAmount}}</b> {{currency}} и времетраење од <b>{{loanDuration}}</b> години</p>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="personName" name="name" #personname="ngModel" type="text" placeholder="Вашето име..." required minlength="3">
+                    <div *ngIf="(quotef.submitted || personname.dirty || personname.touched) && !personname.valid">
+                        <small id="nameRequired" class="text-danger" *ngIf="personname.errors?.required">
+                            Името е задолжително.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="personMail" name="email" #personemail="ngModel" type="email" placeholder="Вашиот мејл... (незадолжително поле)" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" />
+                    <div *ngIf="(quotef.submitted || personemail.dirty || personemail.touched) && !personemail.valid">
+                        <small class="text-danger" *ngIf="personemail.errors?.required">
+                            Мејлот е задолжителен.
+                        </small>
+                        <small class="text-danger" *ngIf="personemail.errors?.pattern">
+                            Внесете валиден email.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="personCity" name="city" #personcity="ngModel" type="text" placeholder="Вашиот град..." required />
+                    <div *ngIf="(quotef.submitted || personcity.dirty || personcity.touched) && !personcity.valid">
+                        <small class="text-danger" *ngIf="personcity.errors?.required">
+                            Полето град е задолжително.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="phone" #personphone="ngModel" type="text" placeholder="Вашиот телефонски број..." [(ngModel)]="personPhone" pattern="^[+0-9]*$">
+                    <div *ngIf="(quotef.submitted || personphone.dirty || personphone.touched) && !personphone.valid">
+                        <small class="text-danger" *ngIf="personphone.errors?.pattern">
+                            Внесете валиден телефонски број.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" id="mailMessage" name="mailMessage" placeholder="Содржина на пораката... (незадолжително поле)" [(ngModel)]="mailContent"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="terms" name="terms" #terms="ngModel" [(ngModel)]="termsAccepted" required>
+                    <label for="terms">Се согласувам со <a href="/termsofapplication" target="_blank">условите за аплицирање</a></label>
+                    <div *ngIf="(quotef.submitted || terms.dirty || terms.touched) && !terms.valid">
+                        <small class="text-danger">
+                            Мора да ги прифатите условите за барање понуда.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="sending" style="text-align: center">
+                <img src="/assets/img/loading.svg" alt="Loading..." *ngIf="sending" width="50" />
+            </div>
+            <div role="alert" *ngIf="errorSending" class='alert alert-danger'>
+                {{message}}
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-sm btn-danger" data-dismiss="modal">Откажи</a>
+                <button type="submit" class="btn btn-primary btn-sm" value="send" [disabled]="sending">Испрати</button>
+            </div>
+        </form>
+    </div>
+</div>

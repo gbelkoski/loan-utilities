@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.component.js*": true,
+			"**/.js.map": true,
+			"**/*.spec.js": true,
+			"**/*.spec.js.map": true,
+			"**/*.spec.ts": true
+		}
+	}
+}

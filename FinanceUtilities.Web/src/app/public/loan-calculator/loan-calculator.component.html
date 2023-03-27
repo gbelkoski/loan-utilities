@@ -1,0 +1,74 @@
+﻿<div class="d-xs-block d-sm-block d-md-none d-lg-none sticky-top bg-light">
+    <form (ngSubmit)="f.form.valid && navigateCalculator()" class="form-inline" #f="ngForm">
+        <div class="d-flex flex-column" style="padding: 16px">
+            <div class="d-flex flex-column">
+                <h6 style="margin-bottom:5px">Тип на кредит: </h6>
+                <select [(ngModel)]="selectedLoanType" name="loanType" class="form-control">
+                    <option *ngFor="let lt of loanTypes" value="{{lt.Id}}">{{lt.Name}}</option>
+                </select>
+            </div>
+            <div class="d-flex flex-row align-items-center" style="margin-top:10px">
+                <div class="d-flex flex-column align-items-center" style="margin-right:15px">
+                    <h6 for="loanamount" style="align-self: flex-start;">Износ (EUR)</h6>
+                    <div class="d-flex flex-row align-items-center">
+                        <input [(ngModel)]="loanAmount" #loanamount="ngModel" id="loanamount" name="loanamount" type="number" class="form-control" placeholder="Износ">
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <h6 for="loanduration" style="align-self: flex-start;">Рок во години</h6>
+                    <input [(ngModel)]="loanDuration" id="loanDuration" type="number" name="loandurtion" #loanduration="ngModel" class="form-control" placeholder="Времетраење">
+                </div>
+            </div>
+            <div class="d-flex flex-row" style="justify-content: center; margin-top:10px">
+                <input type="submit" class="btn btn-success btn-sm" name="btnCalculate" value="Пресметај" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="d-none d-md-block d-lg-block d-xl-block sticky-top">
+        <form (ngSubmit)="f.form.valid && navigateCalculator()" #f="ngForm">
+            <div class="d-flex flex-row calculator-container">
+                <div>
+                    <label for="loanamount">Тип на кредит</label>
+                    <div class="d-flex flex-row align-items-center">
+                        <select [(ngModel)]="selectedLoanType" name="loanType" class="form-control">
+                            <option *ngFor="let lt of loanTypes" value="{{lt.Id}}">{{lt.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row" style="align-items: center">
+                    <span style="margin-right:15px"><i class="glyphicon glyphicon-euro"></i></span>
+                    <div>
+                        <label for="loanamount">Износ (EUR)</label>
+                        <div class="d-flex flex-row align-items-center">
+                            <input [(ngModel)]="loanAmount" id="loanamount" name="loanamountD" type="number" class="form-control" #loanamountD="ngModel" placeholder="Износ" required [min]="0"  [maxlength]="7">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row" style="align-items: center">
+                    <span style="margin-right:15px"><i class="glyphicon glyphicon-time"></i></span>
+                    <div>
+                        <label for="loanduration">Рок во години</label>
+                        <input [(ngModel)]="loanDuration" id="loanduration" class="form-control" name="loanduration" type="number" #loanduration="ngModel" placeholder="Времетраење во години" required [min]="1" [max]="30" [maxlength]="2" >
+                    </div>
+                </div>
+
+                <div>
+                    <input type="submit" class="btn btn-success btn-sm" name="btnCalculate" value="Пресметај" />
+                </div>
+            </div>
+            <div *ngIf="((f.submitted || loanduration.dirty || loanduration.touched) && !loanduration.valid) || ((loanamount.dirty || loanamount.touched) && !loanamount.valid)" class="alert alert-danger">
+                <p *ngIf="loanamount.errors?.required">Износот е задолжителен!</p>
+                <p *ngIf="loanamount.errors?.max">Износот не смее да биде поголем од 150000!</p>
+                <p *ngIf="loanamount.errors?.min">Износот не смее да биде помал од 0!</p>
+                <p *ngIf="loanduration.errors?.required">Времетраењето е задолжително!</p>
+                <p *ngIf="loanduration.errors?.max">Времетраењето не смее да биде поголемо од 30 години!</p>
+                <p *ngIf="loanduration.errors?.min">Времетраењето не смее да биде помало од 1 година!</p>
+            </div>
+        </form>
+    </div>
+    <loan-results [loans]='loans' [loanAmount]='amountUsedInCalculation' [loanDuration]='durationUsedInCalculation' [currency]='selectedCurrency' [noResults]='noResults' [errorMessage]='errorMessage' [loadingResults]="loading"></loan-results>
+</div>

@@ -1,0 +1,13 @@
+.calculator-container {
+    padding: 8px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px;
+    border-color: gray;
+    background-color: white;
+}
+
+.btn-success {
+    justify-self: stretch;
+    width: 100%
+}

@@ -1,0 +1,233 @@
+﻿<div class="main-content" *ngIf="loan">
+    <div class="container-fluid">
+        <button class="btn btn-info" (click)="goToLoans()">Назад</button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Кредит</h4>
+                        <p class="category">Детали за кредит</p>
+                    </div>
+                    <div class="card-content">
+                        <form (ngSubmit)="save(loan)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !selectedBank }">
+                                        <label class="control-label">Банка</label>
+                                        <select [(ngModel)]="selectedBank" name="loan.BankId" class="form-control">
+                                            <option *ngFor="let bank of banks" value="{{bank.Id}}">{{bank.Name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !selectedLoanType }">
+                                        <label class="control-label">Тип на кредит</label>
+                                        <select [(ngModel)]="selectedLoanType" name="loan.LoanTypeId" class="form-control">
+                                            <option *ngFor="let lt of loanTypes" value="{{lt.Id}}">{{lt.Name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !loan.Name }">
+                                        <label class="control-label">Назив</label>
+                                        <input type="text" class="form-control" name="loan.Name" [(ngModel)]="loan.Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !loan.Link }">
+                                        <label class="control-label">Линк</label>
+                                        <input type="text" class="form-control" name="loan.Link" [(ngModel)]="loan.Link">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !loan.MinDuration }">
+                                        <label class="control-label">Минимална рочност</label>
+                                        <input type="text" class="form-control" name="loan.MinDuration" [(ngModel)]="loan.MinDuration">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !loan.MaxDuration }">
+                                        <label class="control-label">Максимална рочност</label>
+                                        <input type="text" class="form-control" name="loan.MaxDuration" [(ngModel)]="loan.MaxDuration">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !loan.MinimumAmount }">
+                                        <label class="control-label">Минимален износ</label>
+                                        <input type="text" class="form-control" name="loan.MinimumAmount" [(ngModel)]="loan.MinimumAmount">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !loan.MaximumAmount }">
+                                        <label class="control-label">Максимален износ</label>
+                                        <input type="text" class="form-control" name="loan.MaximumAmount" [(ngModel)]="loan.MaximumAmount">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !loan.CurrencyCode }">
+                                        <label class="control-label">Валута</label>
+                                        <select [(ngModel)]="loan.CurrencyCode" name="loan.CurrencyCode" class="form-control">
+                                            <option *ngFor="let c of currencies" value="{{c.Code}}">{{c.Name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating" [ngClass]="{ 'is-empty': !loan.ParticipationPercentage }">
+                                        <label class="control-label">Процент на учество</label>
+                                        <input type="text" class="form-control" name="loan.ParticipationPercentage" [(ngModel)]="loan.ParticipationPercentage">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--<div class="card">
+                                         <div class="card-content table-responsive"> -->
+                                    <div>
+                                        <div class="table-responsive">
+                                            <button type="button" class="btn btn-success" (click)="addInterestPeriod($event)">+ Нов период</button>
+                                            <!-- <table class="table table-hover"> -->
+                                            <table class="table-hover dense-table">
+                                                <thead class="text-danger">
+                                                    <tr>
+                                                        <th>Тип</th>
+                                                        <th>Реф. камата</th>
+                                                        <th>Период</th>
+                                                        <th>Камата</th>
+                                                        <th>Валута</th>
+                                                        <th>Минимум</th>
+                                                        <th>Максимум</th>
+                                                        <th>Клиент на банка</th>
+                                                        <th>Износ од</th>
+                                                        <th>Износ до</th>
+                                                        <th>Траење од</th>
+                                                        <th>Траење до</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let ip of loan.InterestPeriods; let i=index">
+                                                        <td>
+                                                            <select [name]="'ip.IRType_' + i" [(ngModel)]="ip.IRType" (ngModelChange)="onIRTypeChange($event, ip)">
+                                                                <option *ngFor="let c of interestTypes" value="{{c.Id}}">{{c.Description}}</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select [name]="'ip.ReferenceInterestId_' + i" [(ngModel)]="ip.ReferenceInterestId">
+                                                                <option *ngFor="let r of referenceInterestRates" value="{{r.Id}}">{{r.Id}}</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" [name]="'ip.Duration_' + i" [(ngModel)]="ip.Duration"></td>
+                                                        <td><input type="text" [name]="'ip.InterestPercentage_' + i" [(ngModel)]="ip.InterestPercentage" (ngModelChange)="onInterestPercentageChange($event, ip)"></td>
+                                                        <td>
+                                                            <select [name]="'ip.CurrencyCode_' + i" [(ngModel)]="ip.CurrencyCode">
+                                                                <option *ngFor="let c of currencies" value="{{c.Code}}">{{c.Name}}</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" [name]="'ip.Minimum_' + i" [(ngModel)]="ip.Minimum"></td>
+                                                        <td><input type="text" [name]="'ip.Maximum_' + i" [(ngModel)]="ip.Maximum"></td>
+                                                        <td><input type="checkbox" [name]="'ip.IsBankClient_' + i" [(ngModel)]="ip.IsBankClient"></td>
+                                                        <td><input type="text" [name]="'ip.LoanAmountFrom_' + i" [(ngModel)]="ip.LoanAmountFrom"></td>
+                                                        <td><input type="text" [name]="'ip.LoanAmountTo_' + i" [(ngModel)]="ip.LoanAmountTo"></td>
+                                                        <td><input type="text" [name]="'ip.DurationFrom_' + i" [(ngModel)]="ip.DurationFrom"></td>
+                                                        <td><input type="text" [name]="'ip.DurationTo_' + i" [(ngModel)]="ip.DurationTo"></td>
+
+                                                        <td>
+                                                            <i class="medium material-icons" (click)="copyInterestPeriod(ip.Id)">content_copy</i>
+                                                        </td>
+                                                        <td>
+                                                            <i class="medium material-icons" (click)="removeInterestPeriod($event, ip.Id)">delete</i>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--<div class="card">
+                                         <div class="card-content table-responsive"> -->
+                                    <div>
+                                        <div class="table-responsive">
+                                            <button type="button" class="btn btn-success" (click)="addLoanExpense($event)">+ Нов трошок</button>
+                                            <table class="table-hover dense-table">
+                                                <thead class="text-danger">
+                                                    <tr>
+                                                        <th>Тип</th>
+                                                        <th>%</th>
+                                                        <th>Износ</th>
+                                                        <th>Повторлив</th>
+                                                        <th>Тип на п.</th>
+                                                        <th>Мин.</th>
+                                                        <th>Макс.</th>
+                                                        <th>Клиент на банка</th>
+                                                        <th>Валута</th>
+                                                        <th>Износ од</th>
+                                                        <th>Износ до</th>
+                                                        <th>Траење од</th>
+                                                        <th>Траење до</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let e of loan.LoanExpenses; let i=index">
+                                                        <td>
+                                                            <select [name]="'e.ExpenseTypeId_' + i" [(ngModel)]="e.ExpenseTypeId">
+                                                                <option *ngFor="let r of expenseTypes" value="{{r.Id}}">{{r.Name}}</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" [name]="'e.Percentage_' + i" [(ngModel)]="e.Percentage"></td>
+                                                        <td><input type="text" [name]="'e.Amount_' + i" [(ngModel)]="e.Amount"></td>
+                                                        <td><input type="checkbox" [name]="'e.Reccuring_' + i" [(ngModel)]="e.Reccuring"></td>
+                                                        <td>
+                                                            <select [name]="'e.RecurmentType_' + i" [(ngModel)]="e.RecurmentType">
+                                                                <option *ngFor="let r of recurmentTypes" value="{{r.Id}}">{{r.Description}}</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" [name]="'e.Minimum_' + i" [(ngModel)]="e.Minimum"></td>
+                                                        <td><input type="text" [name]="'e.Maximum_' + i" [(ngModel)]="e.Maximum"></td>
+                                                        <td><input type="checkbox" [name]="'e.IsBankClient_' + i" [(ngModel)]="e.IsBankClient"></td>
+                                                        <td>
+                                                            <select [name]="'e.CurrencyCode_' + i" [(ngModel)]="e.CurrencyCode">
+                                                                <option *ngFor="let c of currencies" value="{{c.Code}}">{{c.Name}}</option>
+                                                            </select>
+                                                        </td>
+                                                        <td><input type="text" [name]="'e.LoanAmountFrom_' + i" [(ngModel)]="e.LoanAmountFrom"></td>
+                                                        <td><input type="text" [name]="'e.LoanAmountTo_' + i" [(ngModel)]="e.LoanAmountTo"></td>
+                                                        <td><input type="text" [name]="'e.DurationFrom_' + i" [(ngModel)]="e.DurationFrom"></td>
+                                                        <td><input type="text" [name]="'e.DurationTo_' + i" [(ngModel)]="e.DurationTo"></td>
+
+                                                        <td>
+                                                            <i class="medium material-icons" (click)="copyLoanExpense(e.Id)">content_copy</i>
+                                                        </td>
+                                                        <td>
+                                                            <i class="medium material-icons" (click)="removeLoanExpense($event, e.Id)">delete</i>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-danger pull-right">Сними</button>
+                            <!--<div class="alert alert-success" role="alert" *ngIf="saveSuccess">
+                                Успешно снимено!
+                            </div>-->
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

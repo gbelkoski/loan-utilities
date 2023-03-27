@@ -1,0 +1,40 @@
+#page-container {
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  #content-wrap {
+    padding-bottom: 5.5rem;    /* Footer height */
+  }
+
+
+
+.titleName:hover,
+.titleName:focus,
+a.navLink:hover {
+    color: #00b3b3;
+    transform: scale(1.1);
+}
+
+.nav-item {
+    text-align: center;
+}
+
+.navbar-brand {
+    padding: 0px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5.5rem;            /* Footer height */
+    background-color: #1a3442;
+}
+
+.footerCaption {
+    color:white;
+    top: 50%;
+    font-size: x-small;
+    margin: 10px;
+}

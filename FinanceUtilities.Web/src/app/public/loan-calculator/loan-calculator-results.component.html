@@ -1,0 +1,113 @@
+﻿<div class="results d-xs-block d-sm-block d-md-none d-lg-none">
+    <div class="spinner" *ngIf="loadingResults">
+        <spinner></spinner>
+    </div>
+    <div *ngFor="let loan of loans" (click)="loanDetails(loan)" class="card container card-shadow" style="padding: 15px; margin-bottom: 20px">
+        <div class="d-flex flex-column" style="text-align: center">
+            <a class="website">
+                <img src="{{loan.BankSmallLogo}}" alt="{{loan.BankName}}" class="loan-image-sm" />
+            </a>
+            <a>
+                <h5 class="loan-name">{{loan.LoanName}}</h5>
+            </a>
+        </div>
+        <hr class="line" />
+        <div [innerHTML]="loan.InstallmentInfo" class="installment"></div>
+        <hr />
+        <div class="details d-flex flex-row justify-content-between">
+            <div class="d-flex flex-column">
+                <span class="text-subtotal">{{loan.TotalInterest}}<span class="text-currency"> {{loan.CurrencyCode}}</span></span>
+                <span class="label-total">Камата</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span class="text-subtotal">{{loan.TotalExpenses}}<span class="text-currency"> {{loan.CurrencyCode}}</span></span>
+                <span class="label-total">Трошоци</span>
+            </div>
+            <div class="d-flex flex-column">
+                <span class="text-total">{{loan.Total}}<span class="text-currency"> {{loan.CurrencyCode}}</span></span>
+                <span class="label-total">Вкупно</span>
+            </div>
+        </div>
+        <div class="d-flex flex-row" style="justify-content: space-between; margin-top: 10px; align-self:center">
+                <button class="btn btn-danger btn-sm quote" data-toggle="modal" data-target="#quote-modal" (click)="selectLoan(loan)" *ngIf="loan.AskQuoteEnabled"><b>Побарај понуда</b></button>
+        </div>
+    </div>
+</div>
+
+<div class="results d-none d-md-block d-lg-block d-xl-block">
+    <div class="spinner" *ngIf="loadingResults">
+        <spinner></spinner>
+    </div>
+    <div *ngFor="let loan of loans" class="card container loan-details">
+        <div class="d-flex flex-row" style="align-items: center">
+            <div style="flex: 1">
+                <a class="website">
+                    <img src="{{loan.BankLogo}}" alt="{{loan.BankName}}" style="max-width: 200px; max-height: 110px" />
+                </a>
+            </div>
+            <div class="d-flex flex-column" style="flex:4; margin-left: 15px">
+                <div class="loanTitle">
+                    <h4 class="loan-name">{{loan.LoanName}}</h4>
+                </div>
+                <div class="d-flex flex-row" style="vertical-align: bottom; justify-content: space-around">
+                    <div class="d-flex flex-column" style="width:50%; margin-right: 10px; margin-bottom: 10px">
+                        <p class="section-heading">Каматни периоди</p>
+                        <div [innerHTML]="loan.InstallmentInfo"></div>
+                    </div>
+                    <div class="d-flex flex-column" style="width:50%; margin-bottom: 10px">
+                        <p class="section-heading-total">Вкупно ( {{loan.CurrencyCode}} )</p>
+                        <div class="details d-flex flex-row total-row">
+                            <div class="d-flex flex-column total-column">
+                                <span class="text-subtotal">{{loan.TotalInterest}}</span>
+                                <span class="label-total">Камата</span>
+                            </div>
+                            <div class="d-flex flex-column total-column">
+                                <span class="text-subtotal">{{loan.TotalExpenses}}</span>
+                                <span class="label-total">Трошоци</span>
+                            </div>
+                            <div class="d-flex flex-column total-column-no-border">
+                                <span class="text-total">{{loan.Total}}</span>
+                                <span class="label-total">Вкупно</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row" style="justify-content: space-around">
+                    <div id="loanDetails{{loan.Id}}" class="collapse" style="width:50%; margin-right: 10px; margin-bottom: 10px">
+                        <p class="section-heading">Трошоци</p>
+                        <p *ngIf="loan.LoanExpenses.length==0">Нема евидентирано трошоци за овој кредитен производ.</p>
+                        <p *ngFor="let expense of loan.LoanExpenses">{{expense.ExpenseType}}: {{expense.Amount | number:'1.0-0'}} {{loan.CurrencyCode}}</p>
+                    </div>
+                    <div id="loanDetails{{loan.Id}}" class="collapse" style="width:50%; margin-bottom: 10px">
+                        <p class="section-heading">Дополнителни информации</p>
+                        <p>Валута: {{loan.CurrencyCode}}</p>
+                        <p>Износ: од {{loan.MinimumAmount}} до {{loan.MaximumAmount}}</p>
+                        <p>Времетраење: од {{loan.MinimumDuration}} до {{loan.MaximumDuration}}</p>
+                        <p>Учество: минимум {{loan.ParticipationPercentage}}%</p>
+                    </div>
+                </div>
+                <div class="d-flex flex-row" style="justify-content: space-between">
+                    <div>
+                        <button class="btn btn-info btn-sm quote" id="amortBtn" data-toggle="modal" data-target="#amortization-modal" (click)="selectLoan(loan)"><b>Aморт. план</b></button>
+                        <button class="btn btn-danger btn-sm quote" data-toggle="modal" data-target="#quote-modal" (click)="selectLoan(loan)" *ngIf="loan.AskQuoteEnabled"><b>Побарај понуда</b></button>
+                    </div>
+
+                    <a href="#loanDetails{{loan.Id}}" data-toggle="collapse" class="loan-details-more" ><i class="fa fa-angle-double-down"></i></a>
+                </div>
+            </div>
+        </div>
+        </div>
+    <!--<div class="fb-page" data-href="https://www.facebook.com/ApartmaniBelkoski/" data-tabs="" data-width="280" data-height="140" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/ApartmaniBelkoski/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ApartmaniBelkoski/">Apartmani Belkoski - Ohrid, Macedonia</a></blockquote>
+    </div>-->
+ </div>
+
+<div *ngIf="noResults">
+    <h3 class="text-danger">Нема резултати!</h3>
+    <p>{{errorMessage}}</p>
+</div>
+
+
+<loan-quote [loanId]='selectedLoanId' [loanAmount]='loanAmount' [loanDuration]='loanDuration' [currency]='selectedCurrencyCode'></loan-quote>
+
+<loan-amortization-schedule  [loan]="selectedLoan" [loanAmount]='loanAmount' [loanDuration]='loanDuration' #amortSchedule></loan-amortization-schedule>

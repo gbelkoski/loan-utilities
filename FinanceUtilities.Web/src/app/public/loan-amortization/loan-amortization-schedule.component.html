@@ -1,0 +1,46 @@
+<div class="fade modal" id="amortization-modal">
+    <div class="modal-dialog">
+        <div class="modal-content amort-modal" data-async data-target="#amortization-modal">
+            <div class="modal-header">
+                <h4 id="modalHeading">Аморт. план</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <img src="/assets/img/loading.svg" alt="Loading..." *ngIf="loading" width="50" />
+                <table class="table" *ngIf="amortizationItems.length > 0">
+                    <th class="firstColumn"></th>
+                    <th><span class="text-info">Датум</span></th>
+                    <th style="width: 90px; text-align: center"><span class="text-info">Каматна стапка</span></th>
+                    <th><span class="text-info">Главница</span></th>
+                    <th><span class="text-info">Камата</span></th>
+                    <th style="width: 90px; text-align: center"><span class="text-info">Месечна рата</span></th>
+                    <th style="width: 100px; text-align: center"><span class="text-info">Преостанат долг</span></th>
+
+                    <tr *ngFor="let item of amortizationItems">
+                        <td class="firstColumn">
+                            <span>{{item.InstalmentNo}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.InstallmentDate | date: 'dd/MM/yyyy'}}</span>
+                        </td>
+                        <td style="text-align: center">
+                            <span>{{item.InterestPercentage | number : '1.2-2'}}%</span>
+                        </td>
+                        <td>
+                            <span>{{item.InstallmentBaseAmount | number : '1.0-0'}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.InstallmentInterestAmount | number : '1.0-0'}}</span>
+                        </td>
+                        <td style="text-align: center">
+                            <span>{{item.InstallmentAmount | number : '1.0-0'}}</span>
+                        </td>
+                        <td style="text-align: center">
+                            <span>{{item.RemainingAmount | number : '1.0-0'}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

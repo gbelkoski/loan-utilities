@@ -1,0 +1,66 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Банки</h4>
+                        <p class="category">Листа на банки</p>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-danger">
+                                <tr>
+                                    <th>Име</th>
+                                    <th>Телефон</th>
+                                    <th>Email</th>
+                                    <th>Последна промена</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let bank of banks">
+                                    <td>{{bank.Name}}</td>
+                                    <td>{{bank.Phone}}</td>
+                                    <td>{{bank.Email}}</td>
+                                    <td class="text-danger">{{bank.LastChange}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="col-md-12">
+                <div class="card card-plain">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Table on Plain Background</h4>
+                        <p class="category">Here is a subtitle for this table</p>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Salary</th>
+                                    <th>Country</th>
+                                    <th>City</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Dakota Rice</td>
+                                    <td>$36,738</td>
+                                    <td>Niger</td>
+                                    <td>Oud-Turnhout</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>

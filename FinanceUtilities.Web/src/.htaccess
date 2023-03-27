@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+   ServerName kreditinfo.mk
+   DocumentRoot /var/www/seznajko
+   
+   RewriteEngine On
+
+   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+   RewriteCond %{REQUEST_URI} !^/api/.*$
+   RewriteRule ^ - [L]
+
+   RewriteCond %{REQUEST_URI} !^/api/.*$
+   RewriteRule ^ /index.html [L]
+
+   RewriteRule ^/api/(.*)$ http://kreditinfo.mk/api/$1 [P]
+</VirtualHost>

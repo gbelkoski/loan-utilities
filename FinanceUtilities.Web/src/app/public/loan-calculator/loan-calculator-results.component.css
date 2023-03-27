@@ -1,0 +1,146 @@
+﻿.results {}
+
+.item {
+    display: flex;
+}
+
+.item>* {
+    width: 25%;
+}
+
+.text-total {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #D63030;
+}
+
+.text-subtotal {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.text-currency {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding-bottom: 5px;
+}
+
+.label-total {
+    text-align: center;
+    font-size: 13px;
+}
+
+.loanTitle {
+    flex: 1;
+}
+
+.total-column {
+    bottom: 0px;
+    border-right: solid;
+    border-width: 1px;
+    border-color: #D63030;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.total-column-no-border {
+    padding-left: 10px;
+}
+
+.installment-info {
+    flex: 2;
+}
+
+.section-heading-total {
+    font-size: large;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+    background-color: #d9534f;
+    color: white;
+}
+
+.section-heading {
+    font-size: large;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 400;
+    background-color: lavender;
+}
+
+.installment {
+    font-size: 1.1em;
+}
+
+.total-row {
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.action-column {
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.quote {
+    align-self: flex-end;
+}
+
+.line {
+    margin-top: 0px;
+}
+
+.loan-name {
+    font-weight: 400;
+    color: darkslategray;
+    font-size: large;
+    margin: 20px 0px;
+}
+
+.loan-image-sm {
+    max-width: 200px;
+    max-height: 150px;
+}
+
+.loan-details {
+    padding: 15px;
+    min-height: 150px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.loan-details-more {
+    color:lightgray;
+    margin-top: 20px;
+    align-self: flex-end;
+}
+
+.action-bar {
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+#amortBtn {
+    width: 120px;
+    margin-right: 15px;
+}
+
+.card-shadow {
+    -webkit-box-shadow: 0px 4px 16px 3px #15549a6b;
+    -moz-box-shadow: 0px 4px 16px 3px #15549a6b;
+    box-shadow: 0px 4px 16px 3px #15549a6b;
+}
+
+.spinner {
+    width: 50px;
+    height: 100%;
+    position: sticky;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, 50%);
+    z-index: 1;
+}
